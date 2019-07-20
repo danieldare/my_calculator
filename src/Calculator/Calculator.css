@@ -1,0 +1,102 @@
+.Calculator {
+  width: 390px;
+  box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.6);
+}
+
+.Calcalator-input {
+  padding: 20px;
+  height: 100px;
+  width: 100%;
+  background: #374f6de3;
+  border: none;
+  font-family: nunito;
+  font-weight: 700;
+  color: rgb(235, 235, 235);
+  font-size: 40px;
+  text-align: right;
+}
+
+.Calcalator-input:focus {
+  border: none;
+}
+
+.btn-syms {
+  flex: 1;
+}
+
+.btn-nums {
+  flex: 3;
+}
+
+.btn-syms .btn {
+  padding: 20px 30px;
+  background: #374f6d;
+  font-family: nunito;
+  font-size: 25px;
+  display: inline-block;
+  color: rgb(241, 241, 241);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: opacity 150ms ease-in-out;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-nums .btn {
+  padding: 20px 30px;
+  background: #374f6d;
+  font-family: nunito;
+  font-size: 25px;
+  display: inline-block;
+  color: rgb(241, 241, 241);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: opacity 150ms ease-in-out;
+  font-weight: 600;
+  width: 33.3%;
+  text-align: center;
+}
+
+.title {
+  padding: 10px;
+  font-family: nunito;
+  font-weight: 800;
+  color: #fff;
+  /* background: rgba(86, 107, 153, 0.514); */
+  background: rgb(219, 150, 38);
+}
+
+.inputs {
+  background: #374f6d;
+  font-family: nunito;
+  height: 45px;
+  padding: 10px 30px;
+  color: #fff;
+  text-align: right;
+}
+
+.btn.btn__equal {
+  background: rgb(219, 150, 38);
+  height: 33.3%;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:active {
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-container {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  display: flex;
+  width: 100%;
+}
