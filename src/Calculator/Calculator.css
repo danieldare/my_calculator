@@ -1,5 +1,5 @@
 .Calculator {
-  width: 390px;
+  width: 350px;
   box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.6);
 }
 
@@ -12,8 +12,10 @@
   font-family: nunito;
   font-weight: 700;
   color: rgb(235, 235, 235);
-  font-size: 40px;
+  /* font-size: 40px; */
+  font-size: 2.7vw;
   text-align: right;
+  overflow: scroll;
 }
 
 .Calcalator-input:focus {
@@ -32,7 +34,7 @@
   padding: 20px 30px;
   background: #374f6d;
   font-family: nunito;
-  font-size: 25px;
+  font-size: 20px;
   display: inline-block;
   color: rgb(241, 241, 241);
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -47,7 +49,7 @@
   padding: 20px 30px;
   background: #374f6d;
   font-family: nunito;
-  font-size: 25px;
+  font-size: 20px;
   display: inline-block;
   color: rgb(241, 241, 241);
   border: 1px solid rgba(0, 0, 0, 0.2);
