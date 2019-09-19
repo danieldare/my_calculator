@@ -18,7 +18,6 @@ class Calculator extends Component {
     }
 
     onButtonClick = (e) => {
-        console.log("hi")
         const { currentNum, prevNum, input , operator} = this.state;
         const val = e.target.value ;
         if(currentNum !== "" && prevNum !== "" && operator !== "" && typeof input === "number") {
@@ -32,20 +31,28 @@ class Calculator extends Component {
     }
 
     clearLastInput = () => {
-        this.setState((prevState) => {
-            return {
-                input: [...this.state.input].slice(0,this.state.input.length - 1).join("")
-            }
-        });
+        if(this.state.input !== ""){
+            this.setState((prevState) => {
+                return {
+                    input: [...this.state.input].slice(0,this.state.input.length - 1).join("")
+                }
+            });
+        }
     }
 
-    addDecimal = () => {
-
+    addDecimal = (e) => {
+        if(!this.state.input.includes(".")){
+            this.setState((prevState) => {
+                return {
+                    input: prevState.input + "."
+                }
+            });
+        }
     }
 
    setOperatorInputs = (e) => {
         const op = e.target.value === "+" || "-" || "/" || "x" ?  e.target.value : "";
-        if(op){
+        if(this.state.input !== "" && op){
             this.setState((prevState) => { 
                 return {
                     prevNum:  prevState.input,
@@ -60,7 +67,29 @@ class Calculator extends Component {
         this.setState({ input: '' , currentNum: "", prevNum: "", operator: "" });
     };
 
-    calculate = () => {        
+    calPercentage = () => {
+        if(this.state.input !== ""){
+            this.setState((prevState) => { 
+                return {
+                    input: prevState.input / 100
+                }
+            });
+        }
+    }
+
+    calTrig = (trigFunc) => {
+        console.log(trigFunc === "sin")
+        if(trigFunc === "sin"){
+            this.setState((prevState) => { 
+                return {
+                    input: trigFunc +  prevState.input ,
+                    result: Math.sin(prevState.input)
+                }
+            });
+        }
+    }
+
+    calculate = () => {      
         if (this.state.operator === "+") {
             this.setState((prevState) => {
                 return {
@@ -72,6 +101,7 @@ class Calculator extends Component {
                     input:  +prevState.prevNum + +prevState.currentNum
                 }
             });
+            
         }else if(this.state.operator === "-"){
             this.setState((prevState) => {
                 return {
@@ -105,7 +135,19 @@ class Calculator extends Component {
                     input:  +prevState.prevNum * +prevState.currentNum
                 }
             });
-        }
+        }else if(this.state.input.includes("sin")){
+            this.setState((prevState) => {
+                return {
+                    currentNum: prevState.input
+                }
+            })
+            this.setState((prevState) => {
+                const inputNum = prevState.input.replace(/[^0-9]/g,'');
+                return {
+                    input: (Math.sin(inputNum * Math.PI / 180)).toFixed(4),
+                }
+            });
+        }  
 
     }
 
@@ -116,17 +158,16 @@ class Calculator extends Component {
             <div className="Calculator">
                 <div className="Calculator_container" >
                     <p className="title">MyCalculator</p>
-                    {/* <div className="Calcalator-input">{this.state.input}</div> */}
-                    <input className="Calcalator-input" defaultValue={this.state.input} />
+                    <div className="Calcalator-input">{this.state.input || this.state.operator || "0"}</div>
                     <div className="btn-container">
                         <div className="btn-nums">
-                            <button className="btn btn__0" value="sin" onClick={this.resetFields}>sin</button>
-                            <button className="btn btn__0" value="cos" onClick={this.onButtonClick}>cos</button>
-                            <button className="btn btn__0" value="tan" onClick={this.onButtonClick}>tan</button>
+                            <button className="btn btn__0" value="sin" onClick={(e) => this.calTrig(e.target.value)}>sin</button>
+                            <button className="btn btn__0" value="cos" onClick={(e) => this.calTrig(e.target.value)}>cos</button>
+                            <button className="btn btn__0" value="tan" onClick={(e) => this.calTrig(e.target.value)}>tan</button>
 
-                            <button className="btn btn__0" value="C" onClick={this.clearInput}>C</button>
-                            <button className="btn btn__0" value="%" onClick={this.onButtonClick}>%</button>
-                            <button className="btn btn__0" value="e" onClick={this.onButtonClick}>e</button>
+                            <button className="btn btn__0" value="CE" onClick={this.clearInput}>CE</button>
+                            <button className="btn btn__0" value="%" onClick={this.calPercentage}>%</button>
+                            <button className="btn btn__0" value="e" onClick={this.onButtonClick}>m%</button>
                             <button className="btn btn__0" value="7" onClick={this.onButtonClick}>7</button>
                             <button className="btn btn__0" value="8" onClick={this.onButtonClick}>8</button>
                             <button className="btn btn__0" value="9" onClick={this.onButtonClick}>9</button>
@@ -137,14 +178,14 @@ class Calculator extends Component {
                             <button className="btn btn__0" value="2" onClick={this.onButtonClick}>2</button>
                             <button className="btn btn__0" value="3" onClick={this.onButtonClick}>3</button>
                             <button className="btn btn__0" value="0" onClick={this.onButtonClick}>0</button>
-                            <button className="btn btn__0" value="." onClick={this.onButtonClick}>.</button>
+                            <button className="btn btn__0" value="." onClick={this.addDecimal}>.</button>
                             <button className="btn btn__0" value="<" onClick={this.clearLastInput}>{"<"}</button>
                         </div>
                         <div className="btn-syms">
-                            <button className="btn btn__0" value="+" onClick={this.setOperatorInputs}>+</button>
-                            <button className="btn btn__0" value="-" onClick={this.setOperatorInputs}>-</button>
-                            <button className="btn btn__0" value="x" onClick={this.setOperatorInputs}>x</button>
-                            <button className="btn btn__0" value="/" onClick={this.setOperatorInputs}>/</button>
+                            <button className="btn btn__operators" value="+" onClick={this.setOperatorInputs}>+</button>
+                            <button className="btn btn__operators" value="-" onClick={this.setOperatorInputs}>-</button>
+                            <button className="btn btn__operators" value="x" onClick={this.setOperatorInputs}>x</button>
+                            <button className="btn btn__operators" value="/" onClick={this.setOperatorInputs}>/</button>
                             <button className="btn btn__equal" value="=" onClick={this.calculate}>=</button>
                         </div>
                     </div>
